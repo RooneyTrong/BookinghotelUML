@@ -1,0 +1,26 @@
+@startuml(id=ABcSystem)
+title ATM System - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<1>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+}
+skinparam rectangle<<2>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+}
+rectangle "==Banking User\n<size:10>[Person]</size>\n\nUser have account banking" <<1>> as 1
+rectangle "==ATM System\n<size:10>[Software System]</size>\n\nATM sofware" <<2>> as 2
+1 .[#707070,thickness=2].> 2 : "Use"
+@enduml
