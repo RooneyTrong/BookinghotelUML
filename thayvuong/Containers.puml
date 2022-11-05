@@ -1,0 +1,58 @@
+@startuml(id=Containers)
+title Hotel Reservation System - Containers
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<1>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+}
+skinparam rectangle<<3>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+}
+skinparam rectangle<<4>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+}
+skinparam rectangle<<5>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+}
+skinparam rectangle<<6>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+}
+skinparam rectangle<<7>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+}
+rectangle "==Customer\n<size:10>[Person]</size>\n\nAn online booking customer" <<1>> as 1
+package "Hotel Reservation System\n[Software System]" {
+  rectangle "==Api Application\n<size:10>[Container: Java and Spring MVC]</size>\n\nProvides Hotel reservation functionality via a JSON/HTTPS API" <<5>> as 5
+  rectangle "==Database\n<size:10>[Container: SQL Server]</size>\n\nStore customer information, booking date and time, room information,etc" <<6>> as 6
+  rectangle "==Mobile App\n<size:10>[Container: React Native]</size>\n\nProvides a limited subset of the Hotel reservation functionality to customers via their mobile device" <<7>> as 7
+  rectangle "==Single-Page Application\n<size:10>[Container: Javascript and ReactJs]</size>\n\nProvides all Hotel reservation functionality via their browser" <<4>> as 4
+  rectangle "==Web Application\n<size:10>[Container: Java and Spring MVC]</size>\n\nDelivers hotel infomation and the Hotel reservation single page application" <<3>> as 3
+}
+5 .[#707070,thickness=2].> 6 : "Reads from and writes to\n<size:8>[JDBC]</size>"
+1 .[#707070,thickness=2].> 7 : "View room information and make a reservation"
+1 .[#707070,thickness=2].> 4 : "View room information and make a reservation"
+1 .[#707070,thickness=2].> 3 : "Visits Khachsanphuonganh.com using\n<size:8>[Https]</size>"
+7 .[#707070,thickness=2].> 5 : "Makes API calls to\n<size:8>[Json/Https]</size>"
+4 .[#707070,thickness=2].> 5 : "Makes API calls to\n<size:8>[Json/Https]</size>"
+3 .[#707070,thickness=2].> 4 : "Delivers to the customer 's web browser"
+@enduml
