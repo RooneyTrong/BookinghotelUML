@@ -15,21 +15,37 @@ skinparam rectangle<<1>> {
   FontColor #ffffff
   BorderColor #052e56
 }
+skinparam rectangle<<23>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+}
 skinparam rectangle<<2>> {
   BackgroundColor #1168bd
   FontColor #ffffff
   BorderColor #0b4884
 }
-skinparam rectangle<<9>> {
+skinparam rectangle<<27>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+}
+skinparam rectangle<<31>> {
   BackgroundColor #08427b
   FontColor #ffffff
   BorderColor #052e56
 }
 rectangle "==Customer\n<size:10>[Person]</size>\n\nAn online booking customer" <<1>> as 1
-rectangle "==Management\n<size:10>[Person]</size>\n\nStore all hotel information about customer, room, booking date, etc" <<9>> as 9
+rectangle "==Management\n<size:10>[Person]</size>\n\nStore all hotel information about customer, room, booking date, etc" <<31>> as 31
+rectangle "==Authorized System\n<size:10>[Software System]</size>\n\nAssign user rights with administrator" <<23>> as 23
 rectangle "==Hotel Reservation System\n<size:10>[Software System]</size>\n\nAllows customers to view customer information, reservation information and confirm details." <<2>> as 2
+rectangle "==Notification System\n<size:10>[Software System]</size>\n\nSend SMS to customers: successful booking, room problems, etc" <<27>> as 27
+23 .[#707070,thickness=2].> 2 : "Reply"
 1 .[#707070,thickness=2].> 2 : "request for booking"
-2 .[#707070,thickness=2].> 1 : "comfirm details"
-2 .[#707070,thickness=2].> 9 : "send information"
-9 .[#707070,thickness=2].> 2 : "reply information"
+2 .[#707070,thickness=2].> 23 : "Sends request to the system"
+2 .[#707070,thickness=2].> 1 : "Comfirm detail"
+2 .[#707070,thickness=2].> 31 : "send information"
+2 .[#707070,thickness=2].> 27 : "Send notification using"
+31 .[#707070,thickness=2].> 2 : "reply information"
+27 .[#707070,thickness=2].> 1 : "Sends notification to"
 @enduml

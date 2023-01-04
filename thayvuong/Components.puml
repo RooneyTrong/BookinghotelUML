@@ -1,0 +1,79 @@
+@startuml(id=Components)
+title Hotel Reservation System - Web Application - Components
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+left to right direction
+skinparam rectangle<<1>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+}
+skinparam rectangle<<4>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<5>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<6>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<7>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<8>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<9>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<31>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+}
+skinparam rectangle<<10>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+}
+rectangle "==Customer\n<size:10>[Person]</size>\n\nAn online booking customer" <<1>> as 1
+rectangle "==Management\n<size:10>[Person]</size>\n\nStore all hotel information about customer, room, booking date, etc" <<31>> as 31
+rectangle "==Single-Page Application\n<size:10>[Container: PHP and Laravel]</size>\n\nProvides all Hotel reservation functionality via their browser" <<10>> as 10
+package "Web Application\n[Container: PHP and Laravel]" {
+  rectangle "==Central Controller\n<size:10>[Component: PHP]</size>\n\nCentral controller connected to services" <<9>> as 9
+  rectangle "==Dashboard Management\n<size:10>[Component: PHP]</size>\n\nAllows management to view customer information, hotel information" <<4>> as 4
+  rectangle "==Introduction Controller\n<size:10>[Component: PHP]</size>\n\nAllows customers to view referral information" <<6>> as 6
+  rectangle "==Product Catalog\n<size:10>[Component: PHP]</size>\n\nAllows customers to view product catalog" <<5>> as 5
+  rectangle "==Product Management\n<size:10>[Component: PHP]</size>\n\nAllows management to view hotel information" <<8>> as 8
+  rectangle "==User Management\n<size:10>[Component: PHP]</size>\n\nAllows management to view customer information" <<7>> as 7
+}
+9 .[#707070,thickness=2].> 4 : ""
+9 .[#707070,thickness=2].> 10 : "Delivers to the customer 's web browser"
+1 .[#707070,thickness=2].> 6 : "Visits phuonganhhotel.com using\n<size:8>[Https]</size>"
+1 .[#707070,thickness=2].> 5 : "Visits phuonganhhotel.com using\n<size:8>[Https]</size>"
+1 .[#707070,thickness=2].> 10 : "View room information and make a reservation"
+4 .[#707070,thickness=2].> 31 : "retrieves statistics from"
+4 .[#707070,thickness=2].> 8 : "Uses\n<size:8>[Https]</size>"
+4 .[#707070,thickness=2].> 7 : "Uses\n<size:8>[Https]</size>"
+6 .[#707070,thickness=2].> 9 : ""
+5 .[#707070,thickness=2].> 9 : ""
+@enduml

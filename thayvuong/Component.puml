@@ -1,0 +1,109 @@
+@startuml(id=Component)
+title Hotel Reservation System - Api Application - Components
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+left to right direction
+skinparam rectangle<<22>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+}
+skinparam rectangle<<12>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<13>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<14>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<15>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<16>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<27>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+}
+skinparam rectangle<<17>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<18>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<19>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<20>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+skinparam rectangle<<10>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+}
+skinparam rectangle<<21>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+}
+rectangle "==Database\n<size:10>[Container: SQL Server]</size>\n\nStore customer information, booking date and time, room information,etc" <<22>> as 22
+rectangle "==Notification System\n<size:10>[Software System]</size>\n\nSend SMS to customers: successful booking, room problems, etc" <<27>> as 27
+rectangle "==Single-Page Application\n<size:10>[Container: PHP and Laravel]</size>\n\nProvides all Hotel reservation functionality via their browser" <<10>> as 10
+package "Api Application\n[Container: PHP and Laravel]" {
+  rectangle "==About Controller\n<size:10>[Component: Laravel, REST]</size>\n\nAllow users to view hotel referral information" <<13>> as 13
+  rectangle "==Auth\n<size:10>[Component: PHP]</size>\n\nUser authorization and authentication" <<18>> as 18
+  rectangle "==Collection Controller\n<size:10>[Component: Laravel,REST]</size>\n\nAllows users to view the hotel's achievements" <<15>> as 15
+  rectangle "==Contact Controller\n<size:10>[Component: Laravel,REST]</size>\n\nAllow customers to view the address and send feedback to the hotel" <<16>> as 16
+  rectangle "==Contact model\n<size:10>[Component: PHP]</size>\n\nAllows to send feedback and view the address" <<20>> as 20
+  rectangle "==Login Controller\n<size:10>[Component: Laravel,REST]</size>\n\nAllows users to sign in to application" <<12>> as 12
+  rectangle "==Notification model\n<size:10>[Component: PHP]</size>\n\nSend notifications to customers" <<19>> as 19
+  rectangle "==Product Controller\n<size:10>[Component: Laravel,REST]</size>\n\nAllows users to view room types, room rates, services" <<17>> as 17
+  rectangle "==Product model\n<size:10>[Component: PHP]</size>\n\nShow room information, price,..." <<21>> as 21
+  rectangle "==Requests Controller\n<size:10>[Component: Laravel,REST]</size>\n\nAllow users to submit booking requests" <<14>> as 14
+}
+13 .[#707070,thickness=2].> 22 : "Reads from and writes to\n<size:8>[JDBC]</size>"
+18 .[#707070,thickness=2].> 22 : "Reads from and writes to\n<size:8>[JDBC]</size>"
+15 .[#707070,thickness=2].> 22 : "Reads from and writes to\n<size:8>[JDBC]</size>"
+16 .[#707070,thickness=2].> 20 : "Uses"
+20 .[#707070,thickness=2].> 22 : "Reads from and writes to\n<size:8>[JDBC]</size>"
+12 .[#707070,thickness=2].> 18 : "Uses"
+19 .[#707070,thickness=2].> 27 : "Send SMS using"
+17 .[#707070,thickness=2].> 21 : "Uses"
+21 .[#707070,thickness=2].> 22 : "Reads from and writes to\n<size:8>[JDBC]</size>"
+14 .[#707070,thickness=2].> 19 : "Uses"
+10 .[#707070,thickness=2].> 13 : "Makes API calls to\n<size:8>[Json/Https]</size>"
+10 .[#707070,thickness=2].> 15 : "Makes API calls to\n<size:8>[Json/Https]</size>"
+10 .[#707070,thickness=2].> 16 : "Makes API calls to\n<size:8>[Json/Https]</size>"
+10 .[#707070,thickness=2].> 12 : "Makes API calls to\n<size:8>[Json/Https]</size>"
+10 .[#707070,thickness=2].> 17 : "Makes API calls to\n<size:8>[Json/Https]</size>"
+10 .[#707070,thickness=2].> 14 : "Makes API calls to\n<size:8>[Json/Https]</size>"
+@enduml
