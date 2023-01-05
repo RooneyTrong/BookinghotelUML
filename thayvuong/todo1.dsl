@@ -37,6 +37,7 @@ workspace {
                 pro = component "Product model" "Show room information, price,..." "PHP"
             }
             database = container "Database" "Store customer information, booking date and time, room information,etc" "SQL Server"{
+                tags "Database"
                 custom = component "List Of Customers" "Stores customer information including name, phone, identity card" "SQL Server"
                 his = component "List booking history" "Stores list of customer's booking history" "SQL Server"
                 fedd = component "List feedback" "Stores customer feedback list" "SQL Server"
@@ -51,7 +52,9 @@ workspace {
         }
         author = softwareSystem "Authorized System" "Assign user rights with administrator"{
             authapi = container "Authorized Api" "Provides authentication and authorization functions via a JSON/HTTPS API" "PHP and Laravel"
-            authdb = container "Database" "Stores the user information" "SQL Server"
+            authdb = container "Database" "Stores the user information" "SQL Server"{
+                tags "Database"
+            }
             authweb = container "Web Appication" "Provide interface for user to login" "PHP"
         } 
         notification = softwareSystem "Notification System" "Send SMS to customers: successful booking, room problems, etc"{
@@ -65,7 +68,9 @@ workspace {
                 contac = component "Contact Component" "Provides customer contact function" "Laravel"
                 
             }
-            notidb = container "Notification Database" "Stores customer notifications"
+            notidb = container "Notification Database" "Stores customer notifications"{
+                tags "Database"
+            }
         }
         manageSystem = person "Management"  "Store all hotel information about customer, room, booking date, etc"
     
