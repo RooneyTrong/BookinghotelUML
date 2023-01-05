@@ -11,9 +11,19 @@ workspace {
                 promanager = component "Product Management" "Allows management to view hotel information" "PHP"
                 central = component "Central Controller" "Central controller connected to services" "PHP"
                 employee = component "Employee Management" "Allows admin to view and edit employee information" "PHP"
-                bookmanager = component "Booking Management" "Allow admin to view order information" "PHP"
+                bookmanager = component "Booking Management" "Allows admin to view order information" "PHP"
+                contactus = component "Contact Controller" "Allows customers to view the address" "PHP" 
             }
-            spa = container "Single-Page Application" "Provides all Hotel reservation functionality via their browser" "PHP and Laravel"
+            spa = container "Single-Page Application" "Provides all Hotel reservation functionality via their browser" "PHP and Laravel"{
+                home = component "Home Page" "Display the homepage of the website" "PHP and Laravel"
+                book = component "Booking Controller" "Allows customers to book rooms by contacting them by phone number or email" "PHP and Laravel"
+                ab = component "About Us Component" "Shows referral information and hotel address" "PHP and Laravel"
+                collec = component "Collection Controller" "Show guests the hotel's achievements" "PHP and Laravel"
+                conus = component "Contact Component" "Sends customer feedback by entering name, email, phone, message" "PHP and Laravel"
+                in = component "Intro Component" "Shows the hotel's introduction video" "PHP and Laravel"
+                type = component "Type Component" "Shows room information to customers" "PHP and Laravel"
+                col = component "Colection Component" "Shows details of the hotel's titles and achievements" "PHP and Laravel"
+            }
             api = container "Api Application" "Provides Hotel reservation functionality via a JSON/HTTPS API " "PHP and Laravel"{
                 login = component "Login Controller" "Allows users to sign in to application" "Laravel,REST"
                 about = component "About Controller" "Allow users to view hotel referral information" "Laravel, REST"
@@ -26,7 +36,18 @@ workspace {
                 ct = component "Contact model" "Allows to send feedback and view the address" "PHP"
                 pro = component "Product model" "Show room information, price,..." "PHP"
             }
-            database = container "Database" "Store customer information, booking date and time, room information,etc" "SQL Server"
+            database = container "Database" "Store customer information, booking date and time, room information,etc" "SQL Server"{
+                custom = component "List Of Customers" "Stores customer information including name, phone, identity card" "SQL Server"
+                his = component "List booking history" "Stores list of customer's booking history" "SQL Server"
+                fedd = component "List feedback" "Stores customer feedback list" "SQL Server"
+                duct = component "List Product" "Stores room list including room type, room rate" "SQL Server"
+                valid = component "List Valid Rooms" "Stores list of rooms that are available, in use, in trouble" "SQL Server"
+                emp = component "List Employee" "Stores employee list including employee information, job title" "SQL Server"
+                payment = component "List Payment" "Stores list of customer invoice information" "SQL Server"
+                reven = component "Revenue Statistics" "Statistical storage of all hotel revenue" "SQL Server"
+                detai = component "Revenue Details" "Stores revenue details of each hotel by date month year" "SQL Server"
+                info = component "List hotel information" "Stores all hotel information including address, phone, email, achievements" "SQL Server"
+            }
         }
         author = softwareSystem "Authorized System" "Assign user rights with administrator"{
             authapi = container "Authorized Api" "Provides authentication and authorization functions via a JSON/HTTPS API" "PHP and Laravel"
@@ -54,6 +75,8 @@ workspace {
         hotelSystem -> notification "Send notification using"
         hotelSystem -> User "Comfirm detail"
         notification -> manageSystem "Sends report to"
+        hotelSystem -> author "Sends request to the system"
+        author -> hotelSystem "Reply"
         
         
         User -> webapp "Visits phuonganhhotel.com using" "Https"
@@ -92,18 +115,19 @@ workspace {
         
         User -> catalog "Visits phuonganhhotel.com using" "Https"
         User -> intro "Visits phuonganhhotel.com using" "Https"
-        catalog -> central ""
-        intro -> central ""
-        central -> manager ""
+        User -> contactus "Visits phuonganhhotel.com using" "Https"
+        catalog -> central "Sends request"
+        intro -> central "Sends request"
+        contactus -> central "Sends request"
+        central -> manager "Sends request"
         central -> spa "Delivers to the customer 's web browser"
         manager -> usermanager "Uses" "Https"
         manager -> promanager "Uses" "Https"
         manager -> employee "Uses" "Https"
         manager -> bookmanager "Uses" "Https"
         manager -> manageSystem "retrieves statistics from"
-
-        hotelSystem -> author "Sends request to the system"
-        author -> hotelSystem "Reply"
+        central -> author "Sends request to the system"
+        author -> central "Reply"
 
         hotelSystem -> authweb "Provides interface for users to log in"
         authweb -> authapi "Makes API calls to" "Json/Https" 
@@ -114,6 +138,31 @@ workspace {
         statis -> room "Uses" "Https"
         statis -> revenue "Uses" "Https"
         statis -> cus "Uses" "Https"
+
+        webapp -> home "Delivers to the customer 's web browser"
+        webapp -> book "Delivers to the customer 's web browser"
+        webapp -> ab "Delivers to the customer 's web browser"
+        webapp -> collec "Delivers to the customer 's web browser"
+        webapp -> conus "Delivers to the customer 's web browser"
+        home -> in "Uses" "Https"
+        home -> type "Uses" "Https"
+        collec -> col "Uses" "Https"
+        in -> api "Makes API calls to" "Json/Https"
+        type -> api "Makes API calls to" "Json/Https"
+        col -> api "Makes API calls to" "Json/Https"
+        book -> api "Makes API calls to" "Json/Https"
+        conus -> api "Makes API calls to" "Json/Https"
+
+        api -> custom "Reads from and writes to" "JDBC"
+        api -> duct "Reads from and writes to" "JDBC"
+        api -> emp "Reads from and writes to" "JDBC"
+        api -> payment "Reads from and writes to" "JDBC"
+        api -> reven "Reads from and writes to" "JDBC"
+        api -> info "Reads from and writes to" "JDBC"
+        custom -> his 
+        custom -> fedd
+        duct -> valid
+        reven -> detai
     }
     
     views {
@@ -157,6 +206,15 @@ workspace {
         component notiapi "component"{
             include *
         }
+
+        component spa "COMPONENT"{
+            include *
+        }
+
+        component database "ComPonent"{
+            include *
+        }
+
         
         styles {
             element "Software System" {
@@ -169,9 +227,6 @@ workspace {
                 color #ffffff
             }
 
-            element "Database" {
-                shape Cylinder
-            }
             element "Component" {
                 background #85bbf0
                 color #000000
@@ -181,6 +236,10 @@ workspace {
                 shape person
                 background #08427b
                 color #ffffff
+            }
+
+            element "Database" {
+                shape Cylinder
             }
         }
     }
